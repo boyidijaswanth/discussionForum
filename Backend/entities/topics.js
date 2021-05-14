@@ -22,7 +22,7 @@ class Topics {
 
     async fetchTopics(request, response) {
         let query_conditions = {}
-        if (request.query && request.query.topic && request.query.topic.length) query_conditions.topic = request.query.topic;
+        if (request.query && request.query.topic && request.query.topic.length) query_conditions.topic = { $regex : new RegExp(request.query.topic, "i") };
         let allTopics = await TopicDetails.find(query_conditions);
         let topics_map = {};
         let user_ids = [];
